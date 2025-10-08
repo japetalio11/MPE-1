@@ -11,7 +11,7 @@ async function createTask(req, res) {
     const task = await taskService.createTask(req.body, req.user.id);
     res.status(201).json(task);
   } catch (err) {
-    res.status(500).json({ error: 'Failed to create task' });
+    res.status(500).json({ error: 'Failed to create task', details: err.message });
   }
 }
 
@@ -25,7 +25,7 @@ async function updateTask(req, res) {
     if (!updated) return res.status(404).json({ error: 'Task not found' });
     res.json(updated);
   } catch (err) {
-    res.status(500).json({ error: 'Failed to update task' });
+    res.status(500).json({ error: 'Failed to update task', details: err.message });
   }
 }
 
@@ -35,7 +35,7 @@ async function deleteTask(req, res) {
     if (!deleted) return res.status(404).json({ error: 'Task not found' });
     res.json({ message: 'Task deleted' });
   } catch (err) {
-    res.status(500).json({ error: 'Failed to delete task' });
+    res.status(500).json({ error: 'Failed to delete task', details: err.message });
   }
 }
 
@@ -45,7 +45,7 @@ async function getTask(req, res) {
     if (!task) return res.status(404).json({ error: 'Task not found' });
     res.json(task);
   } catch (err) {
-    res.status(500).json({ error: 'Failed to fetch task' });
+    res.status(500).json({ error: 'Failed to fetch task', details: err.message });
   }
 }
 
@@ -54,7 +54,7 @@ async function getTasks(req, res) {
     const tasks = await Task.find({ createdBy: req.user.id });
     res.json(tasks);
   } catch (err) {
-    res.status(500).json({ error: 'Failed to fetch tasks' });
+    res.status(500).json({ error: 'Failed to fetch tasks', details: err.message });
   }
 }
 
