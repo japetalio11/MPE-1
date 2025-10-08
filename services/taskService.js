@@ -11,6 +11,20 @@ async function createTask(taskData, userId) {
   return await newTask.save();
 }
 
+async function updateTask(taskId, updateData) {
+  return await Task.findOneAndUpdate(
+    { id: taskId },
+    { $set: updateData },
+    { new: true }
+  );
+}
+
+async function deleteTask(taskId) {
+  return await Task.findOneAndDelete({ id: taskId });
+}
+
 module.exports = {
-  createTask
+  createTask,
+  updateTask,
+  deleteTask
 };
